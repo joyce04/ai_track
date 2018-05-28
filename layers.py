@@ -131,10 +131,8 @@ def softmax_loss(x, y):
     prob = exp_score / np.sum(exp_score, axis=1, keepdims=True)
 
     N = x.shape[0]
-    # loss = -np.sum(np.log(prob[np.arange(N), y])) / N
-    # print('LOSS %d' %loss)
-    correct_logprobs = -np.log(prob[np.arange(N), y])
-    loss = np.sum(correct_logprobs) / N
+    log_probs = -np.log(prob[np.arange(N), y])
+    loss = np.sum(log_probs) / N
 
     dx = prob.copy()
     dx[np.arange(N), y] -= 1
