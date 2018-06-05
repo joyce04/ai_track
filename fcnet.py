@@ -1,5 +1,4 @@
 import numpy as np
-
 from layers import *
 from layer_utils import *
 
@@ -61,7 +60,8 @@ class FullyConnectedNet(object):
         for i in range(1, self.num_layers + 1):
             self.params['b_%d' % (i)] = np.zeros(dimensions[i])
             # self.params['W_%d' % (i)] = np.random.randn(dimensions[i-1], dimensions[i]) * weight_scale
-            self.params['W_%d' % (i)] = np.random.randn(dimensions[i-1], dimensions[i]) * np.sqrt(2.0 / dimensions[i]) * weight_scale
+            self.params['W_%d' % (i)] = np.random.randn(dimensions[i - 1], dimensions[i]) * np.sqrt(
+                2.0 / dimensions[i]) * weight_scale
         ############################################################################
         #                             END OF YOUR CODE                                                                                                  #
         ############################################################################
@@ -137,7 +137,7 @@ class FullyConnectedNet(object):
             else:
                 dout, dW, db = affine_relu_backward(dout, cache_layer[i])
 
-            W = self.params['W_%d' %i]
+            W = self.params['W_%d' % i]
             grads['W_%d' % i] = (W * self.lambda_reg) + dW
             grads['b_%d' % i] = db
         ############################################################################
