@@ -93,6 +93,7 @@ for _model in models:
     # train
     solver.train()
 
+
     # plot
     plt.subplot(2, 1, 1)
     # plt.title('Training loss : for dims: %d reg %f' % (_model['dims'], reg))
