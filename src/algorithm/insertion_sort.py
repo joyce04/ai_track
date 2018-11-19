@@ -19,4 +19,4 @@ def insertion_sort(arr):
     return arr
 
 
-#print(insertion_sort([1, 16, 3, 32, 5, 2, 6, 10]))
+print(insertion_sort([1, 16, 3, 5, 12, 32, 5, 2, 6, 10, 42]))
