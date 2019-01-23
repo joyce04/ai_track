@@ -64,6 +64,8 @@
 
   - Autoencoder 
 
+    - Variational Autoencoder
+
 
 
 ### Applications
