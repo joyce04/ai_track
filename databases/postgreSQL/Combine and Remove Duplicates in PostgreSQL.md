@@ -14,18 +14,18 @@ CONCAT : Sepeartor가 필요 없다면,
 하지만 각 컬럼은 스트링에서 리스트로 변환해야하는 상태이기 때문에, 이 경우, Separator필요.
 [concat_ws(',', 'abcde', 2, NULL, 22)	=> abcde,2,22](https://www.postgresql.org/docs/current/functions-string.html#FUNCTIONS-STRING-OTHER)
 
-``` SELECT id, CONCAT_WS(' , ', drug, check_drug) as t_drug
+` SELECT id, CONCAT_WS(' , ', drug, check_drug) as t_drug
 from article_table_sentences_m
 WHERE (check_drug='') is false or (drug='') is false
 ORDER BY check_drug
-limit 50; ```
+limit 50; `
 
 ### 2. 중복제거를 위해 DISTINCT, STRING_AGG로 다시 스트링으로 변환
 
 ### 3. LENGTH
 empty string 때문에 ','가 추가되는 문제가 생겨서 length비교를 통해 1보다 커야지만 다시 스트링으로 합쳐지도록 변경
 
-``` select d.id,
+` select d.id,
 STRING_AGG(DISTINCT(TRIM(d.t_drug)), ' , ') AS t_d
 from (
 SELECT id, t_drug, length(trim(t_drug)) as len
@@ -35,11 +35,12 @@ WHERE (check_drug='') is false or (drug='') is false
 ORDER BY check_drug
 LIMIT 500) as d
 where d.len >1
-group by d.id; ```
+group by d.id; `
+
 
 정돈된 쿼리로 UPDATE
 
-``` update article_table_sentences_m am
+` update article_table_sentences_m am
 set t_ad = com_d.tt_ad
 from
 (select d.id,
@@ -52,16 +53,16 @@ from
 	where d.len >1
 	group by d.id
 ) as com_d
-where am.id = com_d.id; ```
+where am.id = com_d.id; `
 
 
 ### 4. Retrieve Unique(Distinct) values in PostgreSQL
 I want to retrieve unique values from a certain column regardless of record ids.
 <br>
 
-``` SELECT DISTINCT(TRIM(d.tt_drug)) AS t_d
+` SELECT DISTINCT(TRIM(d.tt_drug)) AS t_d
 FROM
 (SELECT id, tt_drug
 FROM article_table_sentences_m M,
 	UNNEST(STRING_TO_ARRAY(t_drug, ' , ')) AS tt_drug
-WHERE (tt_drug='') is false) as d; ```
+WHERE (tt_drug='') is false) as d; `
