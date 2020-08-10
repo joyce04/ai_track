@@ -1,0 +1,1 @@
+## Personal study notes and jupyter notebooks following "Standalone Deep-Learning by Kaist"
